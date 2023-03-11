@@ -24,6 +24,7 @@ $ git clone --recurse-submodules https://github.com/lordoftrident/ray3d
 ## Table of contents
 * [Quickstart](#quickstart)
 * [Dependencies](#dependencies)
+* [Milestones](#milestones)
 * [Bugs](#bugs)
 
 ## Quickstart
@@ -38,6 +39,16 @@ $ ./build
 
 ## Dependencies
 - [SDL2](https://www.libsdl.org/)
+
+## Milestones
+- [X] 3D rendering
+- [X] Textured walls
+- [X] Slabs
+- [ ] Sky
+- [ ] Jumping on slabs (z collision)
+- [ ] Textured floor, ceiling
+- [ ] Doors, thin walls with transparency
+- [ ] Lighting system (possibly with shadow casting)
 
 ## Bugs
 If you find any bugs, please create an issue and report them.
