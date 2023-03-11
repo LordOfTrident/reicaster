@@ -1,3 +1,4 @@
+<h1 align="center">Ray3D</h1>
 <p align="center">
 	<img width="100%" src="res/screenshot.png"/>
 	<a href="./LICENSE">
