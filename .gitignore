@@ -1,0 +1,4 @@
+bin
+build
+.cbuilder-cache
+src/embeds

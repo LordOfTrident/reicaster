@@ -1,0 +1,3 @@
+[submodule "chol"]
+	path = chol
+	url = https://github.com/lordoftrident/chol
