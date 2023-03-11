@@ -9,28 +9,26 @@ ray_hit::ray_hit(): out_of_bounds(true), pos(-1), dist(-1), side(hit_side::left)
 std::vector<ray_hit> cast_ray(map &m, const vec2f &from, const vec2f &dir, float max_dist) {
 	std::vector<ray_hit> hits;
 
-	float gx = dir.y / dir.x;
-	float gy = dir.x / dir.y;
-
-	vec2f step_size(std::sqrt(gx * gx + 1), std::sqrt(1 + gy * gy));
+	vec2f g(dir.x / dir.y, dir.y / dir.x);
+	vec2f unit_step(std::sqrt(1 + g.y * g.y), std::sqrt(g.x * g.x + 1));
 
 	vec2f pos(from), len, step;
 	pos.floor();
 
 	if (dir.x < 0) {
 		step.x = -1;
-		len.x  = (from.x - pos.x) * step_size.x;
+		len.x  = (from.x - pos.x) * unit_step.x;
 	} else {
 		step.x = 1;
-		len.x  = (pos.x + 1 - from.x) * step_size.x;
+		len.x  = (pos.x + 1 - from.x) * unit_step.x;
 	}
 
 	if (dir.y < 0) {
 		step.y = -1;
-		len.y  = (from.y - pos.y) * step_size.y;
+		len.y  = (from.y - pos.y) * unit_step.y;
 	} else {
 		step.y = 1;
-		len.y  = (pos.y + 1 - from.y) * step_size.y;
+		len.y  = (pos.y + 1 - from.y) * unit_step.y;
 	}
 
 	float dist  = 0;
@@ -72,13 +70,13 @@ std::vector<ray_hit> cast_ray(map &m, const vec2f &from, const vec2f &dir, float
 		if (len.x < len.y) {
 			pos.x += step.x;
 			dist   = len.x;
-			len.x += step_size.x;
+			len.x += unit_step.x;
 
 			horiz = true;
 		} else {
 			pos.y += step.y;
 			dist   = len.y;
-			len.y += step_size.y;
+			len.y += unit_step.y;
 
 			horiz = false;
 		}
