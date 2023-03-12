@@ -52,3 +52,8 @@ $ ./build
 
 ## Bugs
 If you find any bugs, please create an issue and report them.
+
+<p align="center">
+	<img width="45%" src="res/screenshot2.png"/>
+	<img width="45%" src="res/screenshot3.png"/>
+</p>

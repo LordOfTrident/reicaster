@@ -16,7 +16,7 @@
 #define VERSION_MINOR 1
 #define VERSION_PATCH 0
 
-constexpr auto name    = "raycaster";
+constexpr auto name    = "Ray3D";
 constexpr auto fps_cap = 60;
 
 const char *exec_path;
