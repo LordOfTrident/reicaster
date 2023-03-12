@@ -111,6 +111,9 @@ bool create_embeds(build_cache_t *c) {
 }
 
 void build(void) {
+	if (!fs_exists("bin"))
+		fs_create_dir("bin");
+
 	build_cache_t c;
 	if (build_cache_load(&c) != 0)
 		LOG_FATAL("Build cache is corrupted");

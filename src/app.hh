@@ -28,7 +28,7 @@ constexpr auto view_3d_w = win_w, view_3d_h = win_h;
 
 constexpr auto map_w = 20, map_h = 20;
 
-constexpr auto  fov = 70;
+constexpr auto  fov = 120;
 constexpr float sensitivity = 0.6;
 
 constexpr auto  plr_size      = 0.2;
