@@ -52,6 +52,7 @@ application &application::instance() {
 
 application::application(const char *title):
 	plr(plr_size, plr_max_speed),
+	dist_from_proj_plane(view_3d_w / 2 / std::tan(dtor(fov / 2))),
 	running(true)
 {
 	log_set_flags(LOG_TIME | LOG_LOC);
@@ -261,10 +262,10 @@ void application::render_column(const ray_hit &hit, int x, float dir) {
 
 void application::render_view_3d() {
 	view_3d.clear();
-
-	float dir = plr.dir - fov / 2;
-	float off = static_cast<float>(fov) / view_3d_w;
 	for (int x = 0; x < view_3d_w; ++ x) {
+		float dir = plr.dir + rtod(std::atan2((static_cast<float>(x) - view_3d_w / 2),
+		                                      dist_from_proj_plane));
+
 		auto hits = cast_ray(level, plr.pos, vec2f::from_deg(dir));
 		for (int i = hits.size() - 1; i >= 0; -- i) {
 			if (hits[i].out_of_bounds)
@@ -273,8 +274,6 @@ void application::render_view_3d() {
 			hits[i].dist *= std::cos(dtor(plr.dir - dir));
 			render_column(hits[i], x, dir);
 		}
-
-		dir += off;
 	}
 
 	SDL_UpdateTexture(view_3d_texture, nullptr, view_3d.raw, view_3d.w * 4);
