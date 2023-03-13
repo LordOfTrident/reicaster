@@ -196,8 +196,8 @@ void application::render_column(const ray_hit &hit, int x, float dir) {
 	auto wall_pixels  = static_cast<Uint32*>(wall_surface->pixels);
 	auto wall_fmt     = wall_surface->format;
 
-	vec2f ratio(wall_surface->w, static_cast<float>(wall_surface->h) / h * hit.at->h);
-	vec2i surface_pos(column * ratio.x, 0);
+	auto  ratio = static_cast<float>(wall_surface->h) / h * hit.at->h;
+	vec2i surface_pos(column * wall_surface->w, 0);
 
 	if (invert)
 		surface_pos.x = wall_surface->w - surface_pos.x - 1;
@@ -207,7 +207,7 @@ void application::render_column(const ray_hit &hit, int x, float dir) {
 		if (static_cast<std::size_t>(pos.y + y) >= view_3d.h)
 			break;
 
-		surface_pos.y      = static_cast<float>(y) * ratio.y;
+		surface_pos.y      = static_cast<float>(y) * ratio;
 		auto surface_pixel = wall_pixels[surface_pos.y * wall_surface->w + surface_pos.x];
 
 		int r = ((surface_pixel & wall_fmt->Rmask) >> wall_fmt->Rshift) * darken_by;
