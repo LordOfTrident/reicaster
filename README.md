@@ -25,6 +25,7 @@ $ git clone --recurse-submodules https://github.com/lordoftrident/reicaster
 * [Quickstart](#quickstart)
 * [Dependencies](#dependencies)
 * [Milestones](#milestones)
+* [TODO](#todo)
 * [Bugs](#bugs)
 
 ## Quickstart
@@ -49,6 +50,15 @@ $ ./build
 - [ ] Textured floor, ceiling
 - [ ] Doors, thin walls with transparency
 - [ ] Lighting system (possibly with shadow casting)
+
+## TODO
+- [ ] All of the milestones
+- [ ] Proper z player position and velocity
+- [ ] Proper mouse look
+- [ ] Comment source code
+- [ ] Wall x and y size and position inside a block property
+- [ ] A wall property to attach it either to floor or ceiling (for DOOM-like doors)
+- [ ] DOOM-like doors (sliding up using the wall height and z position property)
 
 ## Bugs
 If you find any bugs, please create an issue and report them.

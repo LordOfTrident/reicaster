@@ -15,6 +15,7 @@
 #include "math.hh"
 #include "raycast.hh"
 #include "entity.hh"
+#include "asset.hh"
 
 #include "../embeds.h"
 
@@ -40,17 +41,6 @@ constexpr float friction      = 0.88;
 constexpr float gravity_accel = 4;
 
 constexpr auto plr_vert_off_range = 800;
-
-struct asset {
-	static asset create_from(SDL_Renderer *r, Uint8 *bytes, std::size_t size,
-	                         bool create_texture = true);
-
-	void load(SDL_Renderer *r, Uint8 *bytes, std::size_t size, bool create_texture = true);
-	void destroy();
-
-	SDL_Surface *s;
-	SDL_Texture *t;
-};
 
 class application {
 public:

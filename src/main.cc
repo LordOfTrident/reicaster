@@ -11,6 +11,7 @@
 #include "math.cc"
 #include "raycast.cc"
 #include "entity.cc"
+#include "asset.cc"
 
 #define VERSION_MAJOR 1
 #define VERSION_MINOR 1
