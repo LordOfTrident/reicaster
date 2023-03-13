@@ -1,6 +1,6 @@
 #include "raycast.hh"
 
-namespace ray3d {
+namespace reicaster {
 
 ray_hit::ray_hit(): out_of_bounds(true), pos(-1), dist(-1), side(hit_side::left), at(nullptr) {}
 

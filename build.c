@@ -10,7 +10,7 @@
 #define MAIN "main.cc"
 
 #define OUT     "app"
-#define INSTALL "raycaster"
+#define INSTALL "reicaster"
 
 #define CARGS "-O2", "-std=c++17", "-Wall", "-Wextra", "-Werror", "-pedantic", \
               "-Wno-deprecated-declarations", "-I./chol"

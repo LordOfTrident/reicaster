@@ -1,6 +1,6 @@
 #include "pixels.hh"
 
-namespace ray3d {
+namespace reicaster {
 
 void pixels::create(std::size_t w, std::size_t h) {
 	this->w    = w;

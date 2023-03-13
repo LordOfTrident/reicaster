@@ -21,7 +21,7 @@
 #define  EMBED_NAME texture_wall
 #include EMBED_WALL_BMP
 
-namespace ray3d {
+namespace reicaster {
 
 constexpr auto win_w     = 1000,  win_h     = 600;
 constexpr auto view_3d_w = win_w, view_3d_h = win_h;

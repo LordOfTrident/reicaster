@@ -1,6 +1,6 @@
 #include "app.hh"
 
-namespace ray3d {
+namespace reicaster {
 
 asset asset::create_from(SDL_Renderer *r, Uint8 *bytes, std::size_t size,
                          bool create_texture) {

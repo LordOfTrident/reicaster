@@ -6,7 +6,7 @@
 #include "math.hh"
 #include "map.hh"
 
-namespace ray3d {
+namespace reicaster {
 
 enum class hit_side {
 	left = 0,

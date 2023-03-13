@@ -1,6 +1,6 @@
 #include "math.hh"
 
-namespace ray3d {
+namespace reicaster {
 
 float distance(const vec2f &a, const vec2f &b) {
 	vec2f dist_vec(b - a);

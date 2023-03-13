@@ -6,7 +6,7 @@
 
 #include <SDL2/SDL.h>
 
-namespace ray3d {
+namespace reicaster {
 
 enum class wall_type {
 	bricks, // TODO: Make wall_type actually do something

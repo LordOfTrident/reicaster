@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL.h>
 
-namespace ray3d {
+namespace reicaster {
 
 inline Uint32 color_to_pixel_abgr(Uint8 r, Uint8 g, Uint8 b, Uint8 a = SDL_ALPHA_OPAQUE) {
 	return r | (g << 8) | (b << 16) | (a << 24);

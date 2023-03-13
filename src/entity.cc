@@ -1,6 +1,6 @@
 #include "entity.hh"
 
-namespace ray3d {
+namespace reicaster {
 
 entity::entity(float size, float max_speed):
 	z(0),

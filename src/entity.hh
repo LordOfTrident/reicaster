@@ -4,7 +4,7 @@
 #include "math.hh"
 #include "map.hh"
 
-namespace ray3d {
+namespace reicaster {
 
 struct entity {
 	entity(float size, float max_speed = 100);

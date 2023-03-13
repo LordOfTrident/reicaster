@@ -1,14 +1,14 @@
-<h1 align="center">Ray3D</h1>
+<h1 align="center">reicaster</h1>
 <p align="center">
 	<img width="100%" src="res/screenshot.png"/>
 	<a href="./LICENSE">
 		<img alt="License" src="https://img.shields.io/badge/license-GPL v3-26c374?style=for-the-badge">
 	</a>
-	<a href="https://github.com/LordOfTrident/ray3d/issues">
-		<img alt="Issues" src="https://img.shields.io/github/issues/LordOfTrident/ray3d?style=for-the-badge&color=4f79e4">
+	<a href="https://github.com/LordOfTrident/reicaster/issues">
+		<img alt="Issues" src="https://img.shields.io/github/issues/LordOfTrident/reicaster?style=for-the-badge&color=4f79e4">
 	</a>
-	<a href="https://github.com/LordOfTrident/ray3d/pulls">
-		<img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/LordOfTrident/ray3d?style=for-the-badge&color=4f79e4">
+	<a href="https://github.com/LordOfTrident/reicaster/pulls">
+		<img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/LordOfTrident/reicaster?style=for-the-badge&color=4f79e4">
 	</a>
 	<br><br><br>
 </p>
@@ -18,7 +18,7 @@ using the [DDA algorithm](https://lodev.org/cgtutor/raycasting.html).
 
 Clone with
 ```sh
-$ git clone --recurse-submodules https://github.com/lordoftrident/ray3d
+$ git clone --recurse-submodules https://github.com/lordoftrident/reicaster
 ```
 
 ## Table of contents

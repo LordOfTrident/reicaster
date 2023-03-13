@@ -11,7 +11,7 @@
 
 #include "common.hh"
 
-namespace ray3d {
+namespace reicaster {
 
 constexpr float dtor(float deg) {
 	return deg * M_PI / 180;

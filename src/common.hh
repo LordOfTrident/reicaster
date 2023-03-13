@@ -9,7 +9,7 @@
 
 #define CFMT(...) "%s", fmt(__VA_ARGS__).c_str()
 
-namespace ray3d {
+namespace reicaster {
 
 class error {
 public:

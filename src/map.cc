@@ -1,6 +1,6 @@
 #include "map.hh"
 
-namespace ray3d {
+namespace reicaster {
 
 tile::tile(): collision(false) {}
 tile::tile(wall_type left, wall_type right, wall_type up, wall_type down, float h, float z):
@@ -19,8 +19,8 @@ tile::tile(wall_type type, float h, float z):
 	up(type),
 	down(type),
 	collision(true),
-		z(z),
-		h(h)
+	z(z),
+	h(h)
 {}
 
 static tile ascii_to_tile(char ascii) {

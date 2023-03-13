@@ -27,7 +27,7 @@ void usage() {
 }
 
 void version() {
-	std::cout << ray3d::fmt("%v v%v.%v.%v", name, VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
+	std::cout << reicaster::fmt("%v v%v.%v.%v", name, VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
 	          << std::endl;
 	std::exit(EXIT_SUCCESS);
 }
@@ -36,9 +36,9 @@ std::string args_error_to_str(args_t &a, int err, int where) {
 	switch (err) {
 	case ARG_OUT_OF_MEM: assert(0 && "malloc() fail");
 
-	case ARG_UNKNOWN:       return ray3d::fmt("Unknown flag %v",               a.v[where]);
-	case ARG_MISSING_VALUE: return ray3d::fmt("Flag '%v' has a missing value", a.v[where]);
-	default:                return ray3d::fmt("Incorrect type for flag '%v'",  a.v[where]);
+	case ARG_UNKNOWN:       return reicaster::fmt("Unknown flag %v",               a.v[where]);
+	case ARG_MISSING_VALUE: return reicaster::fmt("Flag '%v' has a missing value", a.v[where]);
+	default:                return reicaster::fmt("Incorrect type for flag '%v'",  a.v[where]);
 	}
 }
 
@@ -53,8 +53,8 @@ void parse_args(int argc, const char **argv) {
 	int where;
 	int err = args_parse_flags(&a, &where, NULL);
 	if (err != ARG_OK) {
-		std::cerr << ray3d::fmt("Error: %v\nTry '%v -h'",
-		                         args_error_to_str(a, err, where), exec_path) << std::endl;
+		std::cerr << reicaster::fmt("Error: %v\nTry '%v -h'",
+		                            args_error_to_str(a, err, where), exec_path) << std::endl;
 		std::exit(EXIT_FAILURE);
 	}
 
@@ -67,7 +67,7 @@ void parse_args(int argc, const char **argv) {
 int main(int argc, const char **argv) {
 	parse_args(argc, argv);
 
-	auto app = ray3d::application::create(name);
+	auto app = reicaster::application::create(name);
 
 	while (app->is_running()) {
 		app->render();
