@@ -18,8 +18,11 @@ application &application::instance() {
 
 application::application(const char *title):
 	plr(plr_size, plr_max_speed),
+	strafe(0),
 	dist_from_proj_plane(view_3d_w / 2 / std::tan(dtor(fov / 2))),
-	running(true)
+	tick(0),
+	running(true),
+	paused(false)
 {
 	log_set_flags(LOG_TIME | LOG_LOC);
 
@@ -95,6 +98,7 @@ application::application(const char *title):
 	assets["wall"] = asset::create_from(ren, texture_wall, sizeof(texture_wall), false);
 	LOG_INFO("Loaded assets");
 
+	plr.h     = 0.5;
 	plr.pos.x = 3.5;
 	plr.pos.y = 3.5;
 	plr.dir   = 45;
@@ -156,7 +160,9 @@ void application::render_column(const ray_hit &hit, int x, float dir) {
 		           (plr.vel.mag() * view_3d_h) * (1 / hit.dist);
 
 	int h = std::round(1.0 / hit.dist * win_h);
-	vec2i pos(x, win_h / 2 - h / 2 - vert_off + bump_off + plr.z * (1 / hit.dist));
+	vec2i pos(x, win_h / 2 - h / 2 - vert_off + bump_off);
+	pos.y -= h / 2;
+	pos.y += (plr.z + plr.h) * h;
 
 	pos.y -= h * hit.at->z;
 	pos.y += h * (1 - hit.at->h);

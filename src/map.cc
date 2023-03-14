@@ -74,4 +74,15 @@ bool map::check_point_collides(float x, float y) const {
 		return at(x, y).collision;
 }
 
+bool map::check_point_collides(float x, float y, float z) const {
+	if (static_cast<std::size_t>(x) >= w or
+	    static_cast<std::size_t>(y) >= h or x < 0 or y < 0 or z < 0)
+		return true;
+	else if (at(x, y).collision) {
+		const auto &tile = at(x, y);
+		return z >= tile.z and z <= tile.z + tile.h;
+	} else
+		return false;
+}
+
 }

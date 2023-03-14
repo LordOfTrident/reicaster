@@ -30,6 +30,7 @@ struct map {
 	tile &at(std::size_t x, std::size_t y);
 
 	bool check_point_collides(float x, float y) const;
+	bool check_point_collides(float x, float y, float z) const;
 
 	tile       *raw;
 	std::size_t w, h, size;

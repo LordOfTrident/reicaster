@@ -12,7 +12,7 @@
 #define OUT     "app"
 #define INSTALL "reicaster"
 
-#define CARGS "-O2", "-std=c++17", "-Wall", "-Wextra", "-Werror", "-pedantic", \
+#define CARGS "-O2", "-std=c++17", "-Wall", "-Wextra", "-Werror", "-pedantic", "-g", \
               "-Wno-deprecated-declarations", "-I./chol"
 #define CLIBS "-lSDL2", "-lSDL2main"
 

@@ -53,7 +53,8 @@ $ ./build
 
 ## TODO
 - [ ] All of the milestones
-- [ ] Proper z player position and velocity
+- [X] Proper z player position and velocity
+- [ ] Better collision
 - [ ] Proper mouse look
 - [ ] Comment source code
 - [ ] Wall x and y size and position inside a block property

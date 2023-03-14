@@ -32,38 +32,8 @@ std::vector<ray_hit> cast_ray(map &m, const vec2f &from, const vec2f &dir, float
 	}
 
 	float dist  = 0;
-	bool  horiz = false, in_wall = true;
+	bool  horiz = false;
 	while (true) {
-		if (m.check_point_collides(pos.x, pos.y)) {
-			ray_hit hit;
-			hit.dist = dist;
-
-			if (not in_wall) {
-				hit.at = &m.at(static_cast<std::size_t>(pos.x), static_cast<std::size_t>(pos.y));
-
-				if (horiz)
-					hit.side = step.x < 0? hit_side::left : hit_side::right;
-				else
-					hit.side = step.y < 0? hit_side::up : hit_side::down;
-
-				if (max_dist == -1 or dist >= max_dist) {
-					hit.out_of_bounds = false;
-					hit.pos = from + dir * dist;
-
-					if (horiz)
-						hit.pos.x = std::round(hit.pos.x);
-					else
-						hit.pos.y = std::round(hit.pos.y);
-				}
-			}
-
-			hits.push_back(hit);
-
-			if (hit.at->z == 0 and hit.at->h == 1)
-				break;
-		}
-		in_wall = false;
-
 		if (max_dist != -1 and dist >= max_dist)
 			break;
 
@@ -79,6 +49,33 @@ std::vector<ray_hit> cast_ray(map &m, const vec2f &from, const vec2f &dir, float
 			len.y += unit_step.y;
 
 			horiz = false;
+		}
+
+		if (m.check_point_collides(pos.x, pos.y)) {
+			ray_hit hit;
+			hit.dist = dist;
+
+			hit.at = &m.at(static_cast<std::size_t>(pos.x), static_cast<std::size_t>(pos.y));
+
+			if (horiz)
+				hit.side = step.x < 0? hit_side::left : hit_side::right;
+			else
+				hit.side = step.y < 0? hit_side::up : hit_side::down;
+
+			if (max_dist == -1 or dist >= max_dist) {
+				hit.out_of_bounds = false;
+				hit.pos = from + dir * dist;
+
+				if (horiz)
+					hit.pos.x = std::round(hit.pos.x);
+				else
+					hit.pos.y = std::round(hit.pos.y);
+			}
+
+			hits.push_back(hit);
+
+			if (hit.at->z == 0 and hit.at->h == 1)
+				break;
 		}
 	}
 

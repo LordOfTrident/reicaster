@@ -3,11 +3,12 @@
 namespace reicaster {
 
 entity::entity(float size, float max_speed):
-	z(0),
+	z(0.9),
 	vel_z(0),
 	dir(0),
 	max_speed(max_speed),
-	apothem(size / 2)
+	apothem(size / 2),
+	h(0.5)
 {}
 
 void entity::fix_dir() {
@@ -18,20 +19,22 @@ void entity::fix_dir() {
 }
 
 bool entity::check_collides_in(const map &m) {
+	float z1 = z;
+	float z2 = z + h;
 	vec2f p1 = pos + vec2f(-apothem, -apothem);
-	if (m.check_point_collides(p1.x, p1.y))
+	if (m.check_point_collides(p1.x, p1.y, z1) or m.check_point_collides(p1.x, p1.y, z2))
 		return true;
 
 	vec2f p2 = pos + vec2f(apothem, apothem);
-	if (m.check_point_collides(p2.x, p2.y))
+	if (m.check_point_collides(p2.x, p2.y, z1) or m.check_point_collides(p2.x, p2.y, z2))
 		return true;
 
 	vec2f p3 = pos + vec2f(apothem, -apothem);
-	if (m.check_point_collides(p3.x, p3.y))
+	if (m.check_point_collides(p3.x, p3.y, z1) or m.check_point_collides(p3.x, p3.y, z2))
 		return true;
 
 	vec2f p4 = pos + vec2f(-apothem, apothem);
-	if (m.check_point_collides(p4.x, p4.y))
+	if (m.check_point_collides(p4.x, p4.y, z1) or m.check_point_collides(p4.x, p4.y, z2))
 		return true;
 
 	return false;
@@ -39,6 +42,14 @@ bool entity::check_collides_in(const map &m) {
 
 void entity::update(const map &m, float friction) {
 	fix_dir();
+
+	float prev_z = z;
+
+	z += vel_z;
+	if (check_collides_in(m)) {
+		z     = prev_z;
+		vel_z = 0;
+	}
 
 	vec2f prev = pos;
 
@@ -49,12 +60,6 @@ void entity::update(const map &m, float friction) {
 	pos.y += vel.y;
 	if (check_collides_in(m))
 		pos.y = prev.y;
-
-	z += vel_z;
-	if (z < 0) {
-		z     = 0;
-		vel_z = 0;
-	}
 
 	vel *= friction;
 }

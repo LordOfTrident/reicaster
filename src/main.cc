@@ -14,10 +14,10 @@
 #include "asset.cc"
 
 #define VERSION_MAJOR 1
-#define VERSION_MINOR 1
+#define VERSION_MINOR 2
 #define VERSION_PATCH 0
 
-constexpr auto name    = "Ray3D";
+constexpr auto name    = "reicaster";
 constexpr auto fps_cap = 60;
 
 const char *exec_path;

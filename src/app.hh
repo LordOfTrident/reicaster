@@ -35,10 +35,10 @@ constexpr float sensitivity = 0.6;
 constexpr auto  plr_size      = 0.2;
 constexpr float plr_max_speed = 0.04;
 constexpr float plr_accel     = 0.01;
-constexpr float plr_jump_vel  = 45;
+constexpr float plr_jump_vel  = 0.1;
 
 constexpr float friction      = 0.88;
-constexpr float gravity_accel = 4;
+constexpr float gravity_accel = 0.01;
 
 constexpr auto plr_vert_off_range = 800;
 
