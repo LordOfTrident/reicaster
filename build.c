@@ -13,13 +13,13 @@
 #define INSTALL "reicaster"
 
 #define CARGS "-O2", "-std=c++17", "-Wall", "-Wextra", "-Werror", "-pedantic", "-g", \
-              "-Wno-deprecated-declarations", "-I./chol"
+              "-Wno-deprecated-declarations", "-I./"
 #define CLIBS "-lSDL2", "-lSDL2main"
 
 #define INSTALL_DIR "/usr/bin"
 
-#define CBUILDER_IMPLEMENTATION
-#include "chol/cbuilder.h"
+#define CHOL_BUILDER_IMPLEMENTATION
+#include "chol/builder.h"
 
 #include "embeds.h"
 

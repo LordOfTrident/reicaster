@@ -2,7 +2,7 @@
 #include <cstdlib>  // std::exit, EXIT_SUCCESS, EXIT_FAILURE
 #include <cassert>  // assert
 
-#include <cargs.h>
+#include <chol/args.h>
 
 #include "app.cc"
 #include "common.cc"

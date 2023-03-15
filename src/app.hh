@@ -7,7 +7,7 @@
 #include <map>     // std::map
 
 #include <SDL2/SDL.h>
-#include <clog.h>
+#include <chol/log.h>
 
 #include "common.hh"
 #include "pixels.hh"

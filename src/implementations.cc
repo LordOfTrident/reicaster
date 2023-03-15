@@ -1,5 +1,5 @@
-#define CARGS_IMPLEMENTATION
-#include <cargs.h>
+#define CHOL_ARGS_IMPLEMENTATION
+#include <chol/args.h>
 
-#define CLOG_IMPLEMENTATION
-#include <clog.h>
+#define CHOL_LOG_IMPLEMENTATION
+#include <chol/log.h>

@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL.h>
 
-#include <clog.h>
+#include <chol/log.h>
 
 namespace reicaster {
 
