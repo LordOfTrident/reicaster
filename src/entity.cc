@@ -2,13 +2,13 @@
 
 namespace reicaster {
 
-entity::entity(float size, float max_speed):
+entity::entity(float size, float h, float max_speed):
 	z(0.9),
 	vel_z(0),
 	dir(0),
 	max_speed(max_speed),
 	apothem(size / 2),
-	h(0.5)
+	h(h)
 {}
 
 void entity::fix_dir() {
@@ -18,24 +18,45 @@ void entity::fix_dir() {
 		dir += 360;
 }
 
+bool entity::check_z_collides_in(const tile &tile) {
+	float z1  = z,      z2  = z + h;
+	float tz1 = tile.z, tz2 = tile.z + tile.h;
+
+	if ((z1 >= tz1 and z1 <= tz2) or (z2 >= tz1 and z2 <= tz2))
+		return true;
+	else
+		return (tz1 >= z1 and tz1 <= z2) or (tz2 >= z1 and tz2 <= z2);
+}
+
 bool entity::check_collides_in(const map &m) {
-	float z1 = z;
-	float z2 = z + h;
-	vec2f p1 = pos + vec2f(-apothem, -apothem);
-	if (m.check_point_collides(p1.x, p1.y, z1) or m.check_point_collides(p1.x, p1.y, z2))
+	if (z < 0)
 		return true;
 
-	vec2f p2 = pos + vec2f(apothem, apothem);
-	if (m.check_point_collides(p2.x, p2.y, z1) or m.check_point_collides(p2.x, p2.y, z2))
-		return true;
+	vec2f p;
 
-	vec2f p3 = pos + vec2f(apothem, -apothem);
-	if (m.check_point_collides(p3.x, p3.y, z1) or m.check_point_collides(p3.x, p3.y, z2))
-		return true;
+	p = pos + vec2f(-apothem, -apothem);
+	if (m.check_point_collides(p.x, p.y)) {
+		if (check_z_collides_in(m.at(p.x, p.y)))
+			return true;
+	}
 
-	vec2f p4 = pos + vec2f(-apothem, apothem);
-	if (m.check_point_collides(p4.x, p4.y, z1) or m.check_point_collides(p4.x, p4.y, z2))
-		return true;
+	p = pos + vec2f(apothem, apothem);
+	if (m.check_point_collides(p.x, p.y)) {
+		if (check_z_collides_in(m.at(p.x, p.y)))
+			return true;
+	}
+
+	p = pos + vec2f(apothem, -apothem);
+	if (m.check_point_collides(p.x, p.y)) {
+		if (check_z_collides_in(m.at(p.x, p.y)))
+			return true;
+	}
+
+	p = pos + vec2f(-apothem, apothem);
+	if (m.check_point_collides(p.x, p.y)) {
+		if (check_z_collides_in(m.at(p.x, p.y)))
+			return true;
+	}
 
 	return false;
 }

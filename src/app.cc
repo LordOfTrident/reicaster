@@ -17,7 +17,7 @@ application &application::instance() {
 }
 
 application::application(const char *title):
-	plr(plr_size, plr_max_speed),
+	plr(plr_size, plr_h, plr_max_speed),
 	strafe(0),
 	dist_from_proj_plane(view_3d_w / 2 / std::tan(dtor(fov / 2))),
 	tick(0),
@@ -98,7 +98,6 @@ application::application(const char *title):
 	assets["wall"] = asset::create_from(ren, texture_wall, sizeof(texture_wall), false);
 	LOG_INFO("Loaded assets");
 
-	plr.h     = 0.5;
 	plr.pos.x = 3.5;
 	plr.pos.y = 3.5;
 	plr.dir   = 45;

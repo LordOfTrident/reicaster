@@ -7,7 +7,7 @@
 namespace reicaster {
 
 struct entity {
-	entity(float size, float max_speed = 100);
+	entity(float size, float h, float max_speed = 100);
 
 	void fix_dir();
 
@@ -20,6 +20,9 @@ struct entity {
 	vec2f pos, vel;
 	float z,   vel_z;
 	float dir, max_speed, apothem, h; // an 'apothem' is half of the length of a squares side
+
+private:
+	bool check_z_collides_in(const tile &tile);
 };
 
 }

@@ -32,6 +32,7 @@ constexpr auto map_w = 20, map_h = 20;
 constexpr float fov = 80;
 constexpr float sensitivity = 0.6;
 
+constexpr auto  plr_h         = 0.5;
 constexpr auto  plr_size      = 0.2;
 constexpr float plr_max_speed = 0.04;
 constexpr float plr_accel     = 0.01;

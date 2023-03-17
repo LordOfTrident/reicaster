@@ -6,3 +6,4 @@
            jumping, fancy walking
 - `1.1.0`: Fix perspective distortion at the edges of the screen
 - `1.2.0`: Fix z position, add z collision
+- `1.2.1`: Fix z collision
