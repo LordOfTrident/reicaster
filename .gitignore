@@ -1,4 +1,3 @@
 bin
 build
-.cbuilder-cache
-src/embeds
+.chol_builder_cache
