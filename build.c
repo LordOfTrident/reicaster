@@ -21,8 +21,6 @@
 #define CHOL_BUILDER_IMPLEMENTATION
 #include "chol/builder.h"
 
-#include "embeds.h"
-
 char *cxx = CXX;
 
 void uninstall(void) {
@@ -78,38 +76,6 @@ char *build_source(build_cache_t *c, const char *src_name, bool force_rebuild) {
 	return out;
 }
 
-bool create_embeds(build_cache_t *c) {
-	bool force_rebuild = false;
-
-	if (!fs_exists("src/embeds"))
-		fs_create_dir("src/embeds");
-
-	FOREACH_IN_ARRAY(embeds, const char*, ARRAY_SIZE(embeds), name, {
-		char *header_path = FS_JOIN_PATH(SRC, *name);
-		char *tmp         = FS_JOIN_PATH(RES, fs_basename(*name));
-		char *res_path    = fs_remove_ext(tmp);
-		free(tmp);
-
-		int64_t m_cached = build_cache_get(c, res_path);
-		int64_t m_now;
-		if (fs_time(res_path, &m_now, NULL) != 0)
-			LOG_FATAL("Could not get last modified time of '%s'", res_path);
-
-		if (m_cached != m_now) {
-			if (!force_rebuild)
-				force_rebuild = true;
-
-			build_cache_set(c, res_path, m_now);
-			embed(res_path, header_path, BYTE_ARRAY);
-		}
-
-		free(res_path);
-		free(header_path);
-	});
-
-	return force_rebuild;
-}
-
 void build(void) {
 	if (!fs_exists("bin"))
 		fs_create_dir("bin");
@@ -118,7 +84,7 @@ void build(void) {
 	if (build_cache_load(&c) != 0)
 		LOG_FATAL("Build cache is corrupted");
 
-	bool force_rebuild = create_embeds(&c);
+	bool force_rebuild = false;
 
 	char  *o_files[128];
 	size_t o_files_count = 0;

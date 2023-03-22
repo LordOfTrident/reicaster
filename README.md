@@ -54,6 +54,10 @@ $ ./build
 ## TODO
 - [ ] All of the milestones
 - [X] Proper z player position and velocity
+- [X] Multiple textures from a sheet
+- [ ] Load texture sheet from a folder in the same directory as the executable
+- [ ] Optimize and remove lag
+- [ ] Loading maps from files
 - [ ] Better collision
 - [ ] Proper mouse look
 - [ ] Comment source code

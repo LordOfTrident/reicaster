@@ -16,11 +16,7 @@
 #include "raycast.hh"
 #include "entity.hh"
 #include "asset.hh"
-
-#include "../embeds.h"
-
-#define  EMBED_NAME texture_wall
-#include EMBED_WALL_BMP
+#include "surface_sheet.hh"
 
 namespace reicaster {
 
@@ -29,8 +25,10 @@ constexpr auto view_3d_w = win_w, view_3d_h = win_h;
 
 constexpr auto map_w = 20, map_h = 20;
 
+constexpr auto tile_size = 300;
+
 constexpr float fov = 80;
-constexpr float sensitivity = 0.6;
+constexpr float sensitivity = 0.4;
 
 constexpr auto  plr_h         = 0.5;
 constexpr auto  plr_size      = 0.2;
@@ -79,6 +77,7 @@ private:
 	int   strafe;
 
 	std::map<const char*, asset> assets;
+	surface_sheet sheet;
 
 	float dist_from_proj_plane;
 

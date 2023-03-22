@@ -3,32 +3,39 @@
 namespace reicaster {
 
 tile::tile(): collision(false) {}
-tile::tile(wall_type left, wall_type right, wall_type up, wall_type down, float h, float z):
-	left(left),
-	right(right),
-	up(up),
-	down(down),
+tile::tile(wall::id left, wall::id right, wall::id up, wall::id down, float h, float z):
+	collision(true),
+	z(z),
+	h(h)
+{
+	id(direction::left)  = left;
+	id(direction::right) = right;
+	id(direction::up)    = up;
+	id(direction::down)  = down;
+}
+
+tile::tile(wall::id id, float h, float z):
+	ids{id, id, id, id},
 	collision(true),
 	z(z),
 	h(h)
 {}
 
-tile::tile(wall_type type, float h, float z):
-	left(type),
-	right(type),
-	up(type),
-	down(type),
-	collision(true),
-	z(z),
-	h(h)
-{}
+wall::id &tile::id(direction side) {
+	return ids[static_cast<int>(side)];
+}
+
+wall::id tile::id(direction side) const {
+	return ids[static_cast<int>(side)];
+}
 
 static tile ascii_to_tile(char ascii) {
 	switch (ascii) {
 	case ' ': return tile();
-	case '_': return tile(wall_type::bricks, 0.4);
-	case '-': return tile(wall_type::bricks, 0.3, 0.3);
-	default:  return tile(wall_type::bricks);
+	case '_': return tile(wall::bricks, 0.4);
+	case '-': return tile(wall::bricks, 0.3, 0.3);
+	case 'W': return tile(wall::bricks_with_paint);
+	default:  return tile(wall::bricks);
 	}
 }
 

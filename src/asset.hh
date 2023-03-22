@@ -10,11 +10,8 @@
 namespace reicaster {
 
 struct asset {
-	static asset create_from(SDL_Renderer *r, Uint8 *bytes, std::size_t size,
-	                         bool create_texture = true);
 	static asset create_from(SDL_Renderer *r, const char *path, bool create_texture = true);
 
-	void load(SDL_Renderer *r, Uint8 *bytes, std::size_t size, bool create_texture = true);
 	void load(SDL_Renderer *r, const char *path, bool create_texture = true);
 	void destroy();
 

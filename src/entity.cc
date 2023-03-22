@@ -64,6 +64,7 @@ bool entity::check_collides_in(const map &m) {
 void entity::update(const map &m, float friction) {
 	fix_dir();
 
+	// TODO: This collision is very primitive and creates gaps
 	float prev_z = z;
 
 	z += vel_z;

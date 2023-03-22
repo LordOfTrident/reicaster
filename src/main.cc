@@ -12,6 +12,7 @@
 #include "raycast.cc"
 #include "entity.cc"
 #include "asset.cc"
+#include "surface_sheet.cc"
 
 #define VERSION_MAJOR 1
 #define VERSION_MINOR 2

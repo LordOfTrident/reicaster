@@ -6,20 +6,28 @@
 
 #include <SDL2/SDL.h>
 
+#include "common.hh"
+
 namespace reicaster {
 
-enum class wall_type {
-	bricks, // TODO: Make wall_type actually do something
-};
+namespace wall {
+	enum id {
+		bricks,
+		bricks_with_paint,
+	};
+}
 
 struct tile {
 	tile();
-	tile(wall_type left, wall_type right, wall_type up, wall_type down, float h = 1, float z = 0);
-	tile(wall_type type, float h = 1, float z = 0);
+	tile(wall::id left, wall::id right, wall::id up, wall::id down, float h = 1, float z = 0);
+	tile(wall::id id, float h = 1, float z = 0);
 
-	wall_type left, right, up, down;
-	bool      collision;
-	float     z, h;
+	wall::id &id(direction side);
+	wall::id  id(direction side) const;
+
+	wall::id ids[4];
+	bool     collision;
+	float    z, h;
 };
 
 struct map {

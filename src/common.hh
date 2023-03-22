@@ -11,6 +11,13 @@
 
 namespace reicaster {
 
+enum class direction {
+	left = 0,
+	right,
+	up,
+	down,
+};
+
 class error {
 public:
 	error();

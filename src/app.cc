@@ -71,32 +71,34 @@ application::application(const char *title):
 	else
 		LOG_INFO("Hid the cursor");
 
+	// TODO: System for reading levels from a file
 	level.create(map_w, map_h,
 	             "####################"
 	             "#        #         #"
 	             "# #    # #         #"
-	             "#   #    #         #"
+	             "W   #    #         #"
 	             "# #      #         #"
-	             "# #  #   _         #"
+	             "# #  W   _         #"
 	             "# ##     #   #-#   #"
-	             "# #    # #         #"
-	             "#        #         #"
-	             "# ##_#_###         #"
+	             "W #    # #         #"
+	             "#        W         #"
+	             "# W#_#_###         #"
 	             "#                  #"
-	             "####  #  #  #  #  ##"
+	             "#W##  #  #  #  #  ##"
 	             "#                  #"
 	             "#                  #"
 	             "#                  #"
-	             "#        ##        #"
+	             "#        #W        #"
 	             "#                  #"
 	             "#                  #"
 	             "#  ##  ##  ##  ##  #"
 	             "####################");
 	LOG_INFO("Created the level");
 
-	// TODO: Map wall_type to assets instead of std::string
-	assets["wall"] = asset::create_from(ren, texture_wall, sizeof(texture_wall), false);
+	assets["sheet"]  = asset::create_from(ren, "res/sheet.bmp", false);
 	LOG_INFO("Loaded assets");
+
+	sheet.create(assets["sheet"].s, tile_size);
 
 	plr.pos.x = 3.5;
 	plr.pos.y = 3.5;
@@ -180,44 +182,39 @@ void application::render_column(const ray_hit &hit, int x, float dir) {
 	float column;
 	bool  invert = false;
 	switch (hit.side) {
-	case hit_side::left: invert = true;
+	case direction::left: invert = true;
 		// fall through
-	case hit_side::right:
+	case direction::right:
 		column = hit.pos.y - std::floor(hit.pos.y);
 		break;
 
-	case hit_side::down: invert = true;
+	case direction::down: invert = true;
 		// fall through
-	case hit_side::up:
+	case direction::up:
 		column     = hit.pos.x - std::floor(hit.pos.x);
 		darken_by *= 0.8;
 		break;
 
-	default: assert(0 && "Unknown hit_side value");
+	default: assert(0 && "Unknown direction value");
 	}
 
-	// TODO: Unhardcode
-	auto wall_surface = assets["wall"].s;
-	auto wall_pixels  = static_cast<Uint32*>(wall_surface->pixels);
-	auto wall_fmt     = wall_surface->format;
-
-	auto  ratio = static_cast<float>(wall_surface->h) / h * hit.at->h;
-	vec2i surface_pos(column * wall_surface->w, 0);
+	auto  ratio = static_cast<float>(sheet.get_tile_size()) / h * hit.at->h;
+	vec2i surface_pos(column * sheet.get_tile_size(), 0);
 
 	if (invert)
-		surface_pos.x = wall_surface->w - surface_pos.x - 1;
+		surface_pos.x = sheet.get_tile_size() - surface_pos.x - 1;
 
-	SDL_LockSurface(wall_surface);
 	for (int y = off; y < h; ++ y) {
 		if (static_cast<std::size_t>(pos.y + y) >= view_3d.h)
 			break;
 
-		surface_pos.y      = static_cast<float>(y) * ratio;
-		auto surface_pixel = wall_pixels[surface_pos.y * wall_surface->w + surface_pos.x];
+		surface_pos.y = static_cast<float>(y) * ratio;
 
-		int r = ((surface_pixel & wall_fmt->Rmask) >> wall_fmt->Rshift) * darken_by;
-		int g = ((surface_pixel & wall_fmt->Gmask) >> wall_fmt->Gshift) * darken_by;
-		int b = ((surface_pixel & wall_fmt->Bmask) >> wall_fmt->Bshift) * darken_by;
+		int r, g, b;
+		sheet.get_color_at(hit.at->id(hit.side), surface_pos.x, surface_pos.y, r, g, b);
+		r *= darken_by;
+		g *= darken_by;
+		b *= darken_by;
 
 		if (r < 0)
 			r = 0;
@@ -228,7 +225,6 @@ void application::render_column(const ray_hit &hit, int x, float dir) {
 
 		view_3d.at(pos.x, pos.y + y) = color_to_pixel_abgr(r, g, b);
 	}
-	SDL_UnlockSurface(wall_surface);
 }
 
 void application::render_view_3d() {
@@ -237,6 +233,11 @@ void application::render_view_3d() {
 		float dir = plr.dir + rtod(std::atan2(static_cast<float>(x) - view_3d_w / 2,
 		                                      dist_from_proj_plane));
 
+		// TODO: Optimize this rendering, so the pixels arent overwritten a bunch of times for no
+		//       reason:
+		//           - Loop from start to end, not end to start
+		//           - Detect the start and end of the column that was rendered, and only render
+		//             where the columns havent been drawn yet
 		auto hits = cast_ray(level, plr.pos, vec2f::from_deg(dir));
 		for (int i = hits.size() - 1; i >= 0; -- i) {
 			if (hits[i].out_of_bounds)

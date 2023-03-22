@@ -2,7 +2,7 @@
 
 namespace reicaster {
 
-ray_hit::ray_hit(): out_of_bounds(true), pos(-1), dist(-1), side(hit_side::left), at(nullptr) {}
+ray_hit::ray_hit(): out_of_bounds(true), pos(-1), dist(-1), side(direction::left), at(nullptr) {}
 
 // Thanks to javidx9 for the great DDA algorithm explanation video
 // https://www.youtube.com/watch?v=NbSee-XM7WA
@@ -58,9 +58,9 @@ std::vector<ray_hit> cast_ray(map &m, const vec2f &from, const vec2f &dir, float
 			hit.at = &m.at(static_cast<std::size_t>(pos.x), static_cast<std::size_t>(pos.y));
 
 			if (horiz)
-				hit.side = step.x < 0? hit_side::left : hit_side::right;
+				hit.side = step.x < 0? direction::left : direction::right;
 			else
-				hit.side = step.y < 0? hit_side::up : hit_side::down;
+				hit.side = step.y < 0? direction::up : direction::down;
 
 			if (max_dist == -1 or dist >= max_dist) {
 				hit.out_of_bounds = false;
